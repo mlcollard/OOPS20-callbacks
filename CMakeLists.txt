@@ -10,6 +10,9 @@ project(Callbacks)
 # C++11 standard
 set(CMAKE_CXX_STANDARD 17)
 
+# force release build since used for timing
+set(CMAKE_BUILD_TYPE Release)
+
 # Assume each .cpp file is a separate application
 file(GLOB APPLICATIONS "*.cpp")
 
