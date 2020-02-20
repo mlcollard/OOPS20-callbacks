@@ -21,6 +21,13 @@ int main() {
     // record the start time
     auto start = std::chrono::steady_clock::now();
 
+    // sort the vector
+    std::sort(v.begin(), v.end(),
+        [](int n1, int n2)-> bool {
+            return n1 < n2;
+        }
+     );
+
     // record the elapsed time
     auto elapsed = std::chrono::steady_clock::now() - start;
 
