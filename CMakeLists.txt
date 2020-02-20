@@ -23,3 +23,18 @@ foreach(APP ${APPLICATIONS})
     add_executable(${APPBASENAME} ${APPBASENAME}.cpp)
 
 endforeach()
+
+# create a run command that times each application
+add_custom_target(run DEPENDS run-cmd)
+add_custom_command(OUTPUT run-cmd COMMAND date)
+set_source_files_properties(run-cmd PROPERTIES SYMBOLIC "true")
+
+# add each application
+foreach(APP ${APPLICATIONS})
+    get_filename_component(APPBASENAME "${APP}" NAME_WLE)
+    add_custom_command(OUTPUT run-cmd APPEND
+        # applications called with file both on stdin and command line
+        COMMAND echo ${APPBASENAME}
+        COMMAND time ./${APPBASENAME}
+    )
+endforeach()
