@@ -23,7 +23,7 @@ int main() {
     std::reverse(v.begin(), v.end());
 
     // record the start time
-    auto start = std::chrono::high_resolution_clock::now();
+    auto start = std::chrono::steady_clock::now();
 
     // sort v in ascending order
     qsort(v.data(), v.size(), sizeof(v[0]),
@@ -40,7 +40,7 @@ int main() {
     });
 
     // record the elapsed time
-    auto elapsed = std::chrono::high_resolution_clock::now() - start;
+    auto elapsed = std::chrono::steady_clock::now() - start;
 
     std::cout << elapsed.count() << '\n';
 
