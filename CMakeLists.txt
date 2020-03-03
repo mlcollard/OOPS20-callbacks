@@ -15,6 +15,9 @@ set(CMAKE_BUILD_TYPE Release)
 
 # Assume each .cpp file is a separate application
 file(GLOB APPLICATIONS "*.cpp")
+file(GLOB WORDINPUTLIST "timer.cpp")
+list(GET WORDINPUTLIST 0 WORDINPUT)
+list(REMOVE_ITEM APPLICATIONS ${WORDINPUT})
 
 # Generate executable for each application
 foreach(APP ${APPLICATIONS})
@@ -23,7 +26,7 @@ foreach(APP ${APPLICATIONS})
     get_filename_component(APPBASENAME "${APP}" NAME_WLE)
 
     # Application is based on .cpp file only
-    add_executable(${APPBASENAME} ${APPBASENAME}.cpp)
+    add_executable(${APPBASENAME} ${APPBASENAME}.cpp timer.cpp)
 
 endforeach()
 
