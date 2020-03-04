@@ -13,6 +13,7 @@
 #include <chrono>
 #include <cassert>
 #include <cstdlib>
+#include "timer.hpp"
 
 std::array<int, 100000000> v;
 
@@ -22,25 +23,23 @@ int main() {
     std::iota(v.begin(), v.end(), 1);
     std::reverse(v.begin(), v.end());
 
-    // record the start time
-    auto start = std::chrono::steady_clock::now();
-
-    // sort v in ascending order
-    qsort(v.data(), v.size(), sizeof(v[0]),
-        [](const void* v1, const void* v2) {
-            auto n1 = static_cast<const int*>(v1);
-            auto n2 = static_cast<const int*>(v2);
-
-            if (*n1 < *n2)
-                return -1;
-            else if (*n1 > *n2)
-                return 1;
-            else
-                return 0;
-    });
-
     // record the elapsed time
-    auto elapsed = std::chrono::steady_clock::now() - start;
+    auto elapsed = timer([&]() {
+
+	    // sort v in ascending order
+	    qsort(v.data(), v.size(), sizeof(v[0]),
+	        [](const void* v1, const void* v2) {
+	            auto n1 = static_cast<const int*>(v1);
+	            auto n2 = static_cast<const int*>(v2);
+
+	            if (*n1 < *n2)
+	                return -1;
+	            else if (*n1 > *n2)
+	                return 1;
+	            else
+	                return 0;
+	    });
+    });
 
     std::cout << elapsed.count() << '\n';
 
